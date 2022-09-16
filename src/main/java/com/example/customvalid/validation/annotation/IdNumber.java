@@ -1,5 +1,7 @@
 package com.example.customvalid.validation.annotation;
 
+import com.example.customvalid.utils.ValidUtil;
+import com.example.customvalid.utils.ValidUtil.CardType;
 import com.example.customvalid.validation.validator.IdNumberValidator;
 
 import javax.validation.Constraint;
@@ -19,5 +21,5 @@ public @interface IdNumber {
 
     Class<? extends Payload>[] payload() default {};
 
-    String[] regex() default {"[A-Z][1-2][0-9]{8}"};
+    ValidUtil.CardType[] cardType() default {CardType.IC};
 }

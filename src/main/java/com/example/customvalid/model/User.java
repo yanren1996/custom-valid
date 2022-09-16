@@ -1,6 +1,6 @@
 package com.example.customvalid.model;
 
-import com.example.customvalid.utils.ValidUtil;
+import com.example.customvalid.utils.ValidUtil.CardType;
 import com.example.customvalid.validation.annotation.IdNumber;
 
 import javax.validation.constraints.Email;
@@ -34,6 +34,6 @@ public class User {
     @Email
     private String email;
 
-    @IdNumber(regex = {ValidUtil.ID_REGEX, ValidUtil.RC_OLD_REGEX, ValidUtil.RC_NEW_REGEX}, message = "{spouse.idNumber}")
+    @IdNumber(cardType = {CardType.IC, CardType.RC_NEW, CardType.RC_OLD}, message = "{spouse.idNumber}")
     private String spouseIdNumber;
 }

@@ -8,16 +8,16 @@ import javax.validation.ConstraintValidatorContext;
 
 public class IdNumberValidator implements ConstraintValidator<IdNumber, String> {
 
-    private String[] regex;
+    private ValidUtil.CardType[] cardType;
 
     @Override
     public void initialize(IdNumber idNumber) {
-        this.regex = idNumber.regex();
+        this.cardType = idNumber.cardType();
     }
 
     @Override
     public boolean isValid(String id, ConstraintValidatorContext constraintValidatorContext) {
-        return ValidUtil.validId(id, regex);
+        return ValidUtil.validId(id, cardType);
     }
 
 }
