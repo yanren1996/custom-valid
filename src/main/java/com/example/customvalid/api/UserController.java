@@ -1,5 +1,6 @@
 package com.example.customvalid.api;
 
+import com.example.customvalid.model.StandardJSend;
 import com.example.customvalid.model.User;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -22,22 +21,27 @@ public class UserController {
     private Validator validator;
 
     @PostMapping(value = "addUser")
-    public String addUser(@RequestBody String webJson) {
+    public StandardJSend addUser(@RequestBody String webJson) {
 
         User user = this.getObjFromJson(webJson, User.class);
+        StandardJSend jSend = new StandardJSend();
 
         // 驗證資料
         Set<ConstraintViolation<User>> violations = validator.validate(user);
         if (violations.size() > 0) {
-            List<String> message = new ArrayList<>();
+            StringBuffer message = new StringBuffer();
             for (ConstraintViolation<User> violation : violations) {
                 System.out.println("System log:" + violation.getMessage());
-                message.add(violation.getMessage());
+                message.append(violation.getMessage());
             }
-            Gson gson = new Gson();
-            return gson.toJson(message);
+            jSend.setStatus("error");
+            jSend.setMessage(message.toString());
+        } else {
+            jSend.setStatus("success");
+            jSend.setData(user);
         }
-        return "成功";// userService.addUser(user);
+        // userService.addUser(user);
+        return jSend;
     }
 
     protected <T> T getObjFromJson(String json, Class<T> clazz) {

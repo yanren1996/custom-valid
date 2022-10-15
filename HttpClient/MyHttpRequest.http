@@ -1,0 +1,35 @@
+### 正確格式
+POST {{baseUrl}}/api/User/addUser
+Content-Type: application/json
+
+{
+  "password": "pass1234",
+  "name": "yanren",
+  "spouseIdNumber": "AC37106605",
+  "idNumber": "Z173477533",
+  "email": "abc@com.tw"
+}
+
+### 錯誤的身分證格式
+POST {{baseUrl}}/api/User/addUser
+Content-Type: application/json
+
+{
+  "password": "pass1234",
+  "name": "yanren",
+  "spouseIdNumber": "AC37106605",
+  "idNumber": "Z173477530",
+  "email": "abc@com.tw"
+}
+
+### 多組資料格式錯誤
+POST {{baseUrl}}/api/User/addUser
+Content-Type: application/json
+
+{
+  "password": "pass",
+  "name": "yanren",
+  "spouseIdNumber": "AC37106600",
+  "idNumber": "Z173477530",
+  "email": "abcdefg"
+}
